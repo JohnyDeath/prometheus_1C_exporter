@@ -25,8 +25,7 @@ func (this *ExplorerSessionsMemory) Construct(s model.Isettings, cerror chan err
 	this.summary = prometheus.NewSummaryVec(
 		prometheus.SummaryOpts{
 			Name:       this.GetName(),
-			Help:       "Показатели из кластера 1С",
-			Objectives: map[float64]float64{0.5: 0.05, 0.9: 0.01, 0.99: 0.001},
+			Help:       "Показатели из кластера 1С",			
 		},
 		[]string{"host", "base", "user", "id", "datatype", "servicename", "appid", "startedat"},
 	)

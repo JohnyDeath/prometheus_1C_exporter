@@ -1,3 +1,24 @@
+# отличие от оригинального
+
+Убраны **quantile** из всех метрик. Теперь, например, вместо трех строк
+```
+ClientLic{host="CA-N11-APP-1",licSRV="\"ca-sys-1\"",quantile="0.5"} 193
+ClientLic{host="CA-N11-APP-1",licSRV="\"ca-sys-1\"",quantile="0.9"} 193
+ClientLic{host="CA-N11-APP-1",licSRV="\"ca-sys-1\"",quantile="0.99"} 193
+```
+Экспортер будет отдавать одну:
+```
+ClientLic{host="CA-N11-APP-1",licSRV="\"ca-sys-1\""} 193
+```
+соответственно в Grafana не нужно будет каждый раз указывать фильтр `quantile="0.99`
+
+т.е. вместо
+
+`sum(disk{ node="$group", host=~"(?i).*app-1", quantile="0.99", metrics="IopsInProgress"})by (metrics) `
+
+пишем
+
+`sum(disk{ node="$group", host=~"(?i).*app-1"", metrics="IopsInProgress"})by (metrics) `
 # prometheus_1C_exporter
 
 Приложение выполняет роль explorer'а для prometheus. На текущий момент приложение собирает метрики:
